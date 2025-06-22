@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Name - Personal Website</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    :root {
+      --primary: #3949ab;
+      --secondary: #1a237e;
+      --accent: #ffb300;
+      --background: #f5f7fa;
+      --surface: #fff;
+      --text: #222222;
+    }
+
+    body {
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+      background-size: cover;
+      /* Optional: fallback color and smooth transition */
+      background-color: var(--background, #202124);
+      transition: background 0.3s;
+    }
+
+    /* Dark mode variables */
+    body.dark-mode {
+      --primary: #232946;
+      --secondary: #121629;
+      --accent: #eebbc3;
+      --background: #121629;
+      --surface: #232946;
+      --text: #fffffe;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1rem 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      font-family: 'Montserrat', Arial, sans-serif;
+      letter-spacing: 1px;
+      transition: transform 0.3s;
+      display: inline-block;
+    }
+
+    nav .logo:hover {
+      animation: bounce 0.6s;
+    }
+
+    @keyframes bounce {
+      0%   { transform: translateY(0);}
+      30%  { transform: translateY(-10px);}
+      50%  { transform: translateY(0);}
+      70%  { transform: translateY(-5px);}
+      100% { transform: translateY(0);}
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    nav ul li {
+      position: relative;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-family: 'Open Sans', Arial, sans-serif;
+      position: relative;
+      padding: 0.25rem 0.5rem;
+      transition: color 0.2s;
+    }
+
+    /* Animated underline on hover for main nav */
+    nav > ul > li > a::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 2px;
+      background: var(--accent, #ffb300);
+      transition: width 0.3s;
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+    }
+
+    nav > ul > li > a:hover,
+    nav > ul > li > a:focus {
+      color: var(--accent, #ffb300);
+    }
+
+    nav > ul > li > a:hover::after,
+    nav > ul > li > a:focus::after {
+      width: 100%;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: var(--bg-overlay);
+      margin: 2rem auto;
+      max-width: 500px;
+      border-radius: 16px;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+
+    .hero:hover {
+      box-shadow: 0 8px 32px rgba(57,73,171,0.18);
+      transform: translateY(-4px) scale(1.02);
+    }
+
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1.5rem;
+      border: 4px solid var(--primary);
+      box-shadow: 0 2px 8px rgba(57,73,171,0.15);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .profile-pic:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px rgba(255,179,0,0.18);
+    }
+
+    .hero h1 {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      color: var(--secondary);
+      letter-spacing: 1px;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      margin-bottom: 2rem;
+      color: #444;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.75rem 2rem;
+      background: var(--accent);
+      color: var(--primary);
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(57,73,171,0.10);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn:hover,
+    .btn:focus {
+      animation: pulse 0.5s;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1);}
+      50% { transform: scale(1.08);}
+      100% { transform: scale(1);}
+    }
+
+    footer {
+      background: var(--secondary);
+      color: #fff;
+      padding: 1.5rem 0 1rem 0;
+      font-size: 1rem;
+      margin-top: 2rem;
+    }
+
+    .footer-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    .footer-left {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-right a {
+      color: var(--accent);
+      text-decoration: none;
+      margin: 0 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .footer-right a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .footer-content {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 1rem;
+      }
+      .footer-right {
+        margin-top: 0.5rem;
+      }
+    }
+
+    section {
+      padding: 2em 1.5em;
+      text-align: center;
+    }
+
+    .projects {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      margin-top: 1em;
+    }
+
+    .project {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 1em;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .cert-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .cert-list li {
+      margin: 0.5em 0;
+    }
+
+    .cert-list a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .cert-list a:hover {
+      text-decoration: underline;
+    }
+
+    @media (min-width: 600px) {
+      .content {
+        padding: 2em 4em;
+      }
+
+      .profile-pic {
+        width: 150px;
+        height: 150px;
+      }
+
+      h1 {
+        font-size: 2em;
+      }
+
+      h2 {
+        font-size: 1.6em;
+      }
+
+      .contact-btn {
+        font-size: 1.1em;
+      }
+
+      .projects {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .project {
+        width: 45%;
+        margin: 0.5em;
+      }
+    }
+
+    @media (min-width: 900px) {
+      body {
+        max-width: 800px;
+        margin: auto;
+        box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        border-radius: 10px;
+        background: #ffffffee;
+      }
+
+      header {
+        border-radius: 10px 10px 0 0;
+      }
+
+      footer {
+        border-radius: 0 0 10px 10px;
+      }
+    }
+
+    /* Dropdown Styles */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      background: var(--nav-bg);
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      top: 100%;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 0.5rem 1rem;
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .dropdown-menu a:hover {
+      background: var(--accent);
+    }
+
+    nav ul .dropdown-menu {
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 2.5rem;
+      left: 0;
+      background: var(--surface, #fff);
+      min-width: 180px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      border-radius: 6px;
+      z-index: 100;
+      padding: 0.5rem 0;
+    }
+
+    nav ul li.dropdown:hover > .dropdown-menu,
+    nav ul li.dropdown:focus-within > .dropdown-menu {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    nav ul .dropdown-menu a {
+      color: var(--text, #222);
+      padding: 0.75rem 1.5rem;
+      display: block;
+      text-align: left;
+      font-weight: 500;
+      background: transparent;
+      transition: background 0.2s, color 0.2s;
+      border-radius: 4px;
+    }
+
+    nav ul .dropdown-menu a:hover,
+    nav ul .dropdown-menu a:focus {
+      background: var(--accent, #ffb300);
+      color: var(--primary, #3949ab);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .section, .hero {
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    .hero {
+      animation-delay: 0.1s;
+    }
+
+    #cv.section { animation-delay: 0.3s; }
+    #certificates.section { animation-delay: 0.5s; }
+    #portfolio.section { animation-delay: 0.7s; }
+    #contact.section { animation-delay: 0.9s; }
+
+    /* Video Background */
+    #bg-video {
+      position: fixed;
+      top: 0; left: 0;
+      min-width: 100vw;
+      min-height: 100vh;
+      width: auto;
+      height: auto;
+      z-index: -1;
+      object-fit: cover;
+    }
+
+    /* Theme Switcher */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-left: auto;
+      padding: 0.5rem 1rem;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #3949ab;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    #theme-label {
+      font-size: 0.9rem;
+      color: #fff;
+      transition: color 0.4s;
+    }
+
+    /* Dark Theme Styles */
+    body.dark {
+      background: #121212;
+      color: #e0e0e0;
+    }
+
+    header.dark {
+      background: #1e1e1e;
+    }
+
+    nav.dark a {
+      color: #e0e0e0;
+    }
+
+    nav.dark a:hover {
+      color: var(--accent);
+    }
+
+    .hero.dark {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn.dark {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    footer.dark {
+      background: #1e1e1e;
+      color: #bbb;
+    }
+
+    /* Add any additional dark theme styles here */
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .contact-form label {
+      font-weight: 600;
+      color: var(--primary, #3949ab);
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      background: var(--surface, #fff);
+      color: var(--text, #222);
+      transition: border 0.2s;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border: 1.5px solid var(--accent, #ffb300);
+      outline: none;
+    }
+
+    .contact-form button.btn {
+      align-self: flex-end;
+      margin-top: 0.5rem;
+    }
+
+    /* Mobile Navigation Styles */
+    .nav-toggle {
+      display: none;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-toggle {
+        display: block;
+        position: relative;
+        z-index: 2101;
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: #fff;
+        cursor: pointer;
+        margin-left: auto;
+        transition: color 0.2s;
+      }
+
+      .nav-menu {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: -320px;
+        width: 260px;
+        height: 100vh;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        padding: 2.5rem 1.2rem 1rem 1.2rem;
+        border-radius: 0 0 0 18px;
+        box-shadow: -4px 0 32px rgba(0,0,0,0.25);
+        z-index: 2102;
+        transition: right 0.5s cubic-bezier(.77,0,.18,1);
+        gap: 2rem;
+        align-items: flex-start;
+        opacity: 0.98;
+      }
+
+      .nav-menu.show {
+        right: 0;
+        display: flex;
+        animation: slideInRight 0.5s cubic-bezier(.77,0,.18,1);
+      }
+
+      @keyframes slideInRight {
+        from { right: -320px; opacity: 0.7; }
+        to { right: 0; opacity: 1; }
+      }
+
+      .nav-menu li {
+        width: 100%;
+        animation: fadeInMenu 0.7s cubic-bezier(.77,0,.18,1);
+      }
+
+      @keyframes fadeInMenu {
+        from { opacity: 0; transform: translateX(40px);}
+        to { opacity: 1; transform: translateX(0);}
+      }
+
+      .nav-menu a {
+        font-size: 1.15rem;
+        padding: 0.8rem 0.5rem;
+        border-radius: 6px;
+        width: 100%;
+        display: block;
+        color: #fff;
+        transition: background 0.2s, color 0.2s;
+      }
+
+      .nav-menu a:hover,
+      .nav-menu a:focus {
+        background: var(--accent, #ffb300);
+        color: var(--primary, #3949ab);
+      }
+
+      .dropdown-menu {
+        position: static !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        min-width: 0 !important;
+        padding: 0.2rem 0 0.2rem 1rem !important;
+        opacity: 1 !important;
+        transform: none !important;
+        display: none;
+      }
+
+      .dropdown.open > .dropdown-menu {
+        display: flex !important;
+        flex-direction: column;
+        gap: 0.2rem;
+        animation: fadeInDropdown 0.4s;
+      }
+
+      @keyframes fadeInDropdown {
+        from { opacity: 0; transform: translateY(20px);}
+        to { opacity: 1; transform: translateY(0);}
+      }
+
+      .nav-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+        background: rgba(30, 34, 62, 0.45);
+        z-index: 2100;
+        transition: opacity 0.4s;
+        opacity: 0;
+      }
+      .nav-overlay.active {
+        display: block;
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="background.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <header>
+    <nav>
+      <div class="logo">MR.BERNARD</div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">&#9776;</button>
+      <ul class="nav-menu" id="nav-menu" role="menubar">
+        <li class="dropdown" tabindex="0">
+          <a href="#about" aria-haspopup="true" aria-expanded="false">About Me</a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#about-bio" role="menuitem">Bio</a></li>
+            <li><a href="#about-skills" role="menuitem">Skills</a></li>
+          </ul>
+        </li>
+        <li class="dropdown" tabindex="0">
+          <a href="#cv" aria-haspopup="true" aria-expanded="false">CV</a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="Benard_Kibuchi_CV UPDATED.pdf" target="_blank" role="menuitem">Download CV</a></li>
+            <li><a href="#cv-experience" role="menuitem">Experience</a></li>
+          </ul>
+        </li>
+        <li class="dropdown" tabindex="0">
+          <a href="#certificates" aria-haspopup="true" aria-expanded="false">Certificates</a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#cert1" role="menuitem">Certificate 1</a></li>
+            <li><a href="#cert2" role="menuitem">Certificate 2</a></li>
+          </ul>
+        </li>
+        <li class="dropdown" tabindex="0">
+          <a href="#portfolio" aria-haspopup="true" aria-expanded="false">Portfolio</a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#web" role="menuitem">Web Projects</a></li>
+            <li><a href="#design" role="menuitem">Designs</a></li>
+            <li><a href="#other" role="menuitem">Other Works</a></li>
+          </ul>
+        </li>
+        <li class="dropdown" tabindex="0">
+          <a href="#contact" class="contact-link" aria-haspopup="true" aria-expanded="false">Contact</a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="mailto:Kibuchibenard4@gmail.com" role="menuitem">Email</a></li>
+            <li><a href="#contact-form" role="menuitem">Contact Form</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="nav-overlay" id="nav-overlay"></div>
+      <!-- Theme Toggle -->
+      <div class="theme-toggle">
+        <label class="switch">
+          <input type="checkbox" id="theme-switch">
+          <span class="slider"></span>
+        </label>
+        <span id="theme-label">Light Mode</span>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" id="about">
+      <img src="WhatsApp Image 2025-06-18 at 10.44.27_a11d8a7a.jpg" alt="Your Photo" class="profile-pic"/>
+      <h1>Hello, I'm BERNARD KIBUCHI</h1>
+      <p>I'm a certified electrician.</p>
+      <a href="mailto:Kibuchibenard4@gmail.com" class="btn">Contact Me</a>
+    </section>
+
+    <section id="cv" class="section">
+      <h2>Curriculum Vitae</h2>
+      <p>
+        <a href="Benard_Kibuchi_CV UPDATED.pdf" target="_blank" class="btn">Download My CV</a>
+      </p>
+      <!-- Or list your experience here -->
+    </section>
+
+    <section id="certificates" class="section">
+      <h2>Certificates</h2>
+      <ul class="cert-list">
+        <li>
+          <strong>Certificate Name</strong> – Issuer, Year
+          <!-- Optionally link to certificate -->
+        </li>
+        <li>
+          <strong>Another Certificate</strong> – Issuer, Year
+        </li>
+      </ul>
+    </section>
+
+    <section id="portfolio" class="section">
+      <h2>Portfolio</h2>
+      <div class="portfolio-grid">
+        <div class="portfolio-item">
+          <img src="project1.jpg" alt="Project 1"/>
+          <h3>Project Title</h3>
+          <p>Short description of the project.</p>
+          <a href="#" class="btn">View Project</a>
+        </div>
+        <!-- Add more portfolio items as needed -->
+      </div>
+    </section>
+
+    <section id="contact" class="section" style="display:none;">
+      <h2>Contact Me</h2>
+      <form class="contact-form" action="mailto:your@email.com" method="POST" enctype="text/plain">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="submit" class="btn">Send Message</button>
+      </form>
+    </section>
+  </main>
+  <footer>
+    <div class="footer-content">
+      <div class="footer-left">
+        &copy; 2025 Your Name. All rights reserved.
+      </div>
+      <div class="footer-right">
+        <a href="mailto:Kibuchibenard4@gmail.com">Email</a> |
+        <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a> |
+      </div>
+    </div>
+  </footer>
+
+  <script>
+// filepath: c:\Users\Kelvin\Downloads\ben web\j.html
+// Theme toggle (unchanged)
+const themeSwitch = document.getElementById('theme-switch');
+const themeLabel = document.getElementById('theme-label');
+themeSwitch.addEventListener('change', function() {
+  document.body.classList.toggle('dark-mode', this.checked);
+  themeLabel.textContent = this.checked ? 'Dark Mode' : 'Light Mode';
+});
+if (localStorage.getItem('theme') === 'dark') {
+  themeSwitch.checked = true;
+  document.body.classList.add('dark-mode');
+  themeLabel.textContent = 'Dark Mode';
+}
+themeSwitch.addEventListener('change', function() {
+  localStorage.setItem('theme', this.checked ? 'dark' : 'light');
+});
+
+// Advanced menu logic
+const navToggle = document.getElementById('nav-toggle');
+const navMenu = document.getElementById('nav-menu');
+const dropdowns = document.querySelectorAll('.dropdown');
+const dropdownLinks = document.querySelectorAll('.dropdown > a');
+const navOverlay = document.getElementById('nav-overlay');
+
+// Toggle mobile menu
+navToggle.addEventListener('click', () => {
+  const expanded = navMenu.classList.toggle('show');
+  navToggle.setAttribute('aria-expanded', expanded);
+  navOverlay.classList.toggle('active', expanded);
+  if (!expanded) {
+    // Close all dropdowns when menu closes
+    dropdowns.forEach(d => {
+      d.classList.remove('open');
+      d.querySelector('a').setAttribute('aria-expanded', 'false');
+    });
+  }
+});
+
+// Close menu when clicking overlay
+navOverlay.addEventListener('click', () => {
+  navMenu.classList.remove('show');
+  navOverlay.classList.remove('active');
+  navToggle.setAttribute('aria-expanded', 'false');
+  dropdowns.forEach(d => {
+    d.classList.remove('open');
+    d.querySelector('a').setAttribute('aria-expanded', 'false');
+  });
+});
+
+// Dropdown open/close logic
+dropdownLinks.forEach(link => {
+  link.addEventListener('click', function(e) {
+    // Only handle on mobile
+    if (window.innerWidth <= 800) {
+      e.preventDefault();
+      const parent = this.parentElement;
+      const isOpen = parent.classList.contains('open');
+      // Close all dropdowns
+      dropdowns.forEach(d => {
+        d.classList.remove('open');
+        d.querySelector('a').setAttribute('aria-expanded', 'false');
+      });
+      // Open this one if it was closed
+      if (!isOpen) {
+        parent.classList.add('open');
+        this.setAttribute('aria-expanded', 'true');
+      }
+    }
+  });
+});
+
+// Keyboard accessibility for dropdowns
+dropdowns.forEach(dropdown => {
+  dropdown.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      this.classList.toggle('open');
+      const link = this.querySelector('a');
+      link.setAttribute('aria-expanded', this.classList.contains('open'));
+    }
+    if (e.key === 'Escape') {
+      this.classList.remove('open');
+      this.querySelector('a').setAttribute('aria-expanded', 'false');
+    }
+  });
+});
+
+// Close menu and dropdowns when clicking outside
+document.addEventListener('click', function(e) {
+  if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+    navMenu.classList.remove('show');
+    dropdowns.forEach(d => {
+      d.classList.remove('open');
+      d.querySelector('a').setAttribute('aria-expanded', 'false');
+    });
+    navToggle.setAttribute('aria-expanded', 'false');
+  }
+});
+
+// Contact link logic (unchanged)
+document.querySelectorAll('.contact-link').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelectorAll('main > section').forEach(sec => sec.style.display = 'none');
+    document.getElementById('contact').style.display = 'block';
+    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+  });
+});
+  </script>
+</body>
+</html>
